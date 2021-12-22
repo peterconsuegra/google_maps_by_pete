@@ -52,7 +52,7 @@ bundle exec rake 'install_google_maps_by_pete[place]
 
 Watch this video to see how it works
 
-[![IMAGE ALT TEXT HERE](https://ozonegroup.co/countries_regions_and_cities.png)](https://www.youtube.com/watch?v=YCp1Yv2A4Dc)
+[![IMAGE ALT TEXT HERE](https://raw.githubusercontent.com/peterconsuegra/google_maps_by_pete/master/templates/MapsByPete.png)](https://www.youtube.com/watch?v=YCp1Yv2A4Dc)
 
 
 
