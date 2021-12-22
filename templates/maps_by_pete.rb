@@ -1,4 +1,4 @@
-module GoogleMapsByPete
+module MapsByPete
   include ActiveSupport::Concern
   
   def set_location    
