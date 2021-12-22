@@ -1,9 +1,6 @@
-# GoogleMapsByPete
+# Google Maps By Pete
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/google_maps_by_pete`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
+An agile way to implement Google Maps localization on a scaffold in Ruby On Rails
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -22,17 +19,38 @@ Or install it yourself as:
 
 ## Usage
 
-1. rails g scaffold Place name:string description:text
-2. gem "google_maps_by_pete", path: "/Users/pedroconsuegra/Sites/ruby/google_maps_by_pete"
-3. bundle exec rake 'install_google_maps_by_pete[place]
-4. <%= render 'shared/google_maps_by_pete', api_key: 'your_google_api_key',  height: '500px', center_map_on: {lat: 25.761681, lng: -80.191788}, model: @model%>
-5. Go to places edit
+1. Create a scaffold for your project. Go to current project directory in Terminal and run the command: 
+```ruby
+rails g scaffold Place name:string description:text
+```
+2. Edit your Gemfile adding this line of code: 
+```ruby
+gem "google_maps_by_pete"
+```
+3. Go to current project directory in Terminal and run the command: 
+```ruby
+bundle install
+```
+4. Go to current project directory in Terminal and run the command: 
+```ruby
+bundle exec rake 'install_google_maps_by_pete[place]
+```
+5. Add jQuery to your layout file: 
+```html
+<script src='/google_maps_by_pete/jquery-3.6.0.min.js'></script>
+```
+6. Add maps.css to your layout file: 
+```html
+<link rel='stylesheet' href='/google_maps_by_pete/maps.css'>
+```
+7. Add this to your _form.html.erb file: 
+```ruby
+<%= render 'shared/google_maps_by_pete', api_key: 'your_google_api_key',  height: '500px', center_map_on: {lat: 25.761681, lng: -80.191788}, model: model_object%>
+```
 
-## Development
+## Video Tutorial
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Contributing
 
