@@ -18,6 +18,7 @@ Or install it yourself as:
     $ gem install google_maps_by_pete
 
 ## Usage
+Let's create a example for a Place scaffold:
 
 1. Create a scaffold for your project. Go to current project directory in Terminal and run the command: 
 ```ruby
@@ -45,7 +46,7 @@ bundle exec rake 'install_google_maps_by_pete[Place]'
 ```
 7. Add this to your _form.html.erb file: 
 ```ruby
-<%= render 'shared/google_maps_by_pete', api_key: 'your_google_api_key',  height: '500px', center_map_on: {lat: 25.761681, lng: -80.191788}, model: model_object%>
+<%= render 'shared/google_maps_by_pete', api_key: 'your_google_api_key',  height: '500px', center_map_on: {lat: 25.761681, lng: -80.191788}, model: place%>
 ```
 
 ## Video Tutorial
