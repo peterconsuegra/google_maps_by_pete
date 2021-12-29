@@ -1,6 +1,11 @@
 # Google Maps By Pete
 
 An agile way to implement Google Maps localization on a scaffold in Ruby On Rails
+
+## Support
+
+Ruby On Rails: 5, 6, 7
+
 ## Installation
 
 Add this line to your application's Gemfile:

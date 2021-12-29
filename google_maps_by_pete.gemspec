@@ -18,6 +18,7 @@ Gem::Specification.new do |spec|
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/peterconsuegra/google_maps_by_pete"
   spec.metadata["changelog_uri"] = "https://github.com/peterconsuegra/google_maps_by_pete/blob/master/CHANGELOG.md"
+  spec.license = 'MIT'
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
@@ -34,6 +35,6 @@ Gem::Specification.new do |spec|
   # For more information and examples about making a new gem, checkout our
   # guide at: https://bundler.io/guides/creating_gem.html
    spec.add_dependency("colorize","~> 0.8.0") 
-   spec.add_dependency("tty-file") 
+   spec.add_dependency("tty-file","~> 0.10.0") 
    
 end
