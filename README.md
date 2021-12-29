@@ -33,7 +33,7 @@ bundle install
 ```
 4. Go to current project directory in Terminal and run the command: 
 ```ruby
-bundle exec rake 'install_google_maps_by_pete[place]
+bundle exec rake 'install_google_maps_by_pete[Place]
 ```
 5. Add jQuery to your layout file: 
 ```html
