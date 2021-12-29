@@ -33,17 +33,25 @@ rails g scaffold Place name:string description:text
 ```ruby
 bundle exec rake 'install_google_maps_by_pete[Place]'
 ```
-3. Add jQuery to your layout file: 
+3. Add jQuery to your layout file: /app/views/layouts/application.html.erb
 ```html
 <script src='/google_maps_by_pete/jquery-3.6.0.min.js'></script>
 ```
-4. Add maps.css to your layout file: 
+4. Add maps.css to your layout file: /app/views/layouts/application.html.erb
 ```html
 <link rel='stylesheet' href='/google_maps_by_pete/maps.css'>
 ```
-5. Add this to your _form.html.erb file: 
+5. Paste this code to your _form.html.erb file: /app/views/places/_form.html.erb
 ```ruby
 <%= render 'shared/google_maps_by_pete', api_key: 'your_google_api_key',  height: '500px', center_map_on: {lat: 25.761681, lng: -80.191788}, model: place%>
+```
+
+6. Allow parameters (lat and lng) in your controller: /app/controllers/places_controller.rb
+
+```ruby
+def place_params
+   params.require(:place).permit(:name, :description, :lat, :lng)
+end
 ```
 
 ## Video Tutorial
