@@ -53,7 +53,7 @@ gem 'google_maps_by_pete'
 bundle install
 ```
 
-6. Go to the application directory in Terminal and run the following command to install the necessary files from the gem:
+6. Go to the application directory in Terminal and run the following command to install the necessary code and files from the gem:
 ```ruby
 bundle exec rake 'install_google_maps_by_pete[Place]'
 ```
