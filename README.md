@@ -26,7 +26,7 @@ Let's create a example for a Place scaffold:
 1. Let's create a new rails app:
 
 ```ruby
-rails new myapp --database=postgresql
+rails new myapp
 ```
 
 2. Create the database:
