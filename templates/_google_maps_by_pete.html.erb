@@ -8,7 +8,8 @@
 <%center_map_on_lng = -80.191788%>
 <%end%>
 
-
+<%table_name =  model.class.table_name%>
+<%set_location_route = "/#{table_name}_set_location"%>
 
 <div id="type-selector" class="controls">
 	  <input type="radio" name="type" id="changetype-all" checked="checked">
@@ -117,7 +118,7 @@
 			
 			//Save model lat and lng
 			<%if defined? model%>
-				set_location("/<%=model.class.name.downcase%>s/set_location",marker.position.lat(),marker.position.lng(),"<%=model.class.name%>",<%=model.id%>)
+				set_location("<%=set_location_route%>",marker.position.lat(),marker.position.lng(),"<%=model.class.name%>",<%=model.id%>)
 			<%end%>
 
 		    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);

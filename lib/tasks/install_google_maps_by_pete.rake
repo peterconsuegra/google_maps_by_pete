@@ -1,68 +1,44 @@
 require_relative '../peterconsuegra_recipes'
-require 'fileutils'
-require "tty-file"
+require 'colorize'
 
-#bundle exec rake 'install_google_maps_by_pete[place]'
+#bundle exec rake 'install_google_maps_by_pete[model]'
 
-desc 'install_google_maps_by_pete required files'
+desc 'install google_maps_by_pete required files'
 task :install_google_maps_by_pete, [:model] do |t, args|
   
-  #require all models
+  #Require all models
   Dir.glob("#{Rails.root}/app/models/*.rb").each { |file| require file }
   
-  #route files
+  #Folders path
   rails_app_folder = Dir.pwd 
   gem_folder = File.expand_path('../../../.', __FILE__)
-    
+  src_folder="#{gem_folder}/templates/"
+  
   #Get scaffold vars
   hash = PeterConsuegraRecipes::get_scaffold_vars(args[:model])
   
-  #Templates folder
-  src_folder="#{gem_folder}/templates/"
+  #Adding partial
+  PeterConsuegraRecipes::move_template(src_folder,"#{rails_app_folder}/app/views/shared/","_google_maps_by_pete.html.erb")
+
+  #Adding concern file
+  PeterConsuegraRecipes::move_template(src_folder,"#{rails_app_folder}/app/controllers/concerns/","maps_by_pete.rb")
   
-  #Adding partials
-  dest_folder="#{rails_app_folder}/app/views/shared/"
-  file="_google_maps_by_pete.html.erb"
-  FileUtils.mkdir_p dest_folder
-  FileUtils.cp src_folder+file,dest_folder+file
-  puts "File copied to: #{dest_folder+file}".green
+  #Adding js and css assets
+  PeterConsuegraRecipes::move_templates(src_folder,"#{rails_app_folder}/public/google_maps_by_pete/",["jquery-3.6.0.min.js","maps.css"])
+     
+  #Adding route
+  PeterConsuegraRecipes::add_route(hash['base_route'],"set_location","post")
   
-  #Adding concern
-  dest_folder="#{rails_app_folder}/app/controllers/concerns/"
-  file="maps_by_pete.rb"
-  FileUtils.mkdir_p dest_folder
-  FileUtils.cp src_folder+file,dest_folder+file
-  puts "File copied to: #{dest_folder+file}".green
+  #Adding concern to controller
+  PeterConsuegraRecipes::add_concern_to_controller("include MapsByPete\n",hash['controller_file'],hash['controller_class'])
   
-  #Copy maps.css file
-  dest_folder="#{rails_app_folder}/public/google_maps_by_pete/"
-  file="maps.css"
-  FileUtils.mkdir_p dest_folder
-  FileUtils.cp src_folder+file,dest_folder+file
-  puts "File copied to: #{dest_folder+file}".green
-  
-  #Copy jquery-3.6.0.min.js file
-  dest_folder="#{rails_app_folder}/public/google_maps_by_pete/"
-  file="jquery-3.6.0.min.js"
-  FileUtils.mkdir_p dest_folder
-  FileUtils.cp src_folder+file,dest_folder+file
-  puts "File copied to: #{dest_folder+file}".green
-   
-  #Adding route to routes.rb
-  file="#{rails_app_folder}/config/routes.rb"
-  code = "post '/#{hash['base_route']}/set_location', to: '#{hash['base_route']}#set_location'"
-  PeterConsuegraRecipes::append_before_last_appearance_of("end",code,file)
-  puts "Adding route: #{code}".blue
-  
-  #Adding include GoogleMapsByPete in Controller
-  file="#{rails_app_folder}/app/controllers/#{hash['controller_file']}"
-  code="include MapsByPete\n"
-  TTY::File.inject_into_file file, code, after: "class #{hash['controller_class']} < ApplicationController\n"
-  puts "Adding concern to controller #{file}: include MapsByPete".blue
-  
-  #Add required migration
+  #Adding lat and lng fields to model
+  puts "Running command:".blue
+  puts "rails generate migration AddFieldsTo#{hash['model_class']} lat:decimal{10-6} lng:decimal{10-6}".green
   `rails generate migration AddFieldsTo#{hash['model_class']} lat:decimal{10-6} lng:decimal{10-6}`
   sleep 2
+  puts "Running command:".blue
+  puts "rake db:migrate".green
   `rake db:migrate`
   
   #Print necessary code 
@@ -73,10 +49,9 @@ task :install_google_maps_by_pete, [:model] do |t, args|
   puts "<script src='/google_maps_by_pete/jquery-3.6.0.min.js'></script>".red
   puts "Add maps.css to your layout file:".red
   puts "<link rel='stylesheet' href='/google_maps_by_pete/maps.css'>".red
-  puts "Add this to your _form.html.erb file:".red
+  puts "Add this partial to your _form.html.erb file:".red
   puts "<%= render 'shared/google_maps_by_pete', api_key: 'your_google_api_key',  height: '500px', center_map_on: {lat: 25.761681, lng: -80.191788}, model: #{hash['model'].downcase}%>".red
-  puts "Allow lat and lng params in your controller #{hash['controller_file']}:".red
+  puts "Allow :lat and :lng params in your controller #{hash['controller_file']}:".red
   puts "params.require(:#{hash['model'].downcase}).permit(:lat, :lng)".red
- 
   
 end
